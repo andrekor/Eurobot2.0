@@ -48,9 +48,9 @@ void marioKalman::initKalman() {
 	aYv=0;
 	float a[N][N] = {{1,0,0},{0,1,0},{0,0,1}}; //Identity matric
 	float p[N][N] = {{1,0,0},{0,1,0},{0,0,1}}; //Identity matric. Will be updated at later point
-	float h[N][N] = {{1,0,0},{0,1,0},{0,0,1}}; //Identity matric. (no rotatio)
-	float q[N][N] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-	float r[N][N] = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};//A lot of error for the beacons, should be handled as noise
+	float h[N][N] = {{1,0,0},{0,1,0},{0,0,0}}; //Identity matric. (no rotation) 
+	float q[N][N] = {{0.9, 0, 0}, {0, 0.9, 0}, {0, 0, 1}};
+	float r[N][N] = {{0.75, 0, 0}, {0, 0.85, 0}, {0, 0, 1}};//A lot of error for the beacons, should be handled as noise
 	//std::cout << "a: " << sizeof(a) << " float: " << sizeof(float) << " a[1] " << sizeof(a[1]) << std::endl;
 	for (int i = 0; i < (sizeof(a[1])/sizeof(float)); i++) {
 		for (int j = 0; j < (sizeof(a[1])/sizeof(float)); j++) {

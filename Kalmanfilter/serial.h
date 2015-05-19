@@ -48,6 +48,7 @@ class Serial {
 		void readChar();
 		std::string readLine();
 		void closeSerial();
+		void write(int writeByte);
 	private:
 		SerialStream serial;
 };

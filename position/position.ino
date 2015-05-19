@@ -15,7 +15,7 @@
 #define oneRevolution 1600 //Muligens må endre dette. Fra instructables.com ....
 #define MICRO_DELAY 700
 
-#define dirPin 7 //the pin that co32480ntrols the direction of the steppermotor
+#define dirPin 7 //the pin that controls the direction of the steppermotor
 #define stepPin 8 //Output pin for the steppermotor
 
 #define RECV_PIN 12
@@ -95,11 +95,27 @@ void setup() {
 rortate continualy in the same direction.
 The function, steps, and sets the angle of each of the beacons. The direction is A -> B -> C -> A*/
 void loop() {
+	/*int val = 0;
+	if (Serial.available() > 0) {
+		val = Serial.read();
+		if (val == 1) {//start byte
+			Serial.println(val);
+			run();
+		}
+	}*/
+
 	step();
 	receiveBeaconSignal();
 	//printBeacon();
-	
 }	
+
+/*Should be used to make the tower start on the start signal*/
+void run() {
+	while(1) {
+		step();
+		receiveBeaconSignal();
+	}
+}
 
 void printBeacon() {
 	if (irrecv.decode(&results)) {
@@ -367,7 +383,6 @@ float angle(int steps) {
 }
 void printPos() {
 	if ((t->XR > 0) && (t->XR < 300) && (t->YR > 0) && (t->YR < 200)) {
-
 		Serial.print(t->XR);
 		Serial.print(", ");
 		Serial.print(t->YR);

@@ -111,3 +111,7 @@ void Serial::readAll() {
 	}
 	std::cout << ss << std::endl;
 }
+
+void Serial::write(int writeByte) {
+	serial << writeByte;
+}

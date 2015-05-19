@@ -7,7 +7,7 @@
 *
 * Copyright (c) 2015 André Kramer Orten <andrekor@ifi.uio.no>. All Rights Reserved.
 *
-* This file is part of EurobotUiO.
+* This file is part of EurobotUiO project.
 *
 * EurobotUiO is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License  as published by
@@ -260,7 +260,6 @@ int main(int argc, char *argv[]) {
 		handleInput(argc, argv);
 	}
 	Prog *p = new Prog();
-	
 	//Threads the distance reader, the zmq server and beacon position
 	LOG("Starts the distance thread");
 	std::thread distance(readDistance, p);
