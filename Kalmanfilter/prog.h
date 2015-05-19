@@ -10,11 +10,13 @@ class Prog {
 		void distance();
 		void setDistance(std::string, std::string, std::string);
 		void setPrevMeasure(std::string);
+		void setStart(std::string);
 		time_t getTime();
 		std::string getDistanceSone1();
 		std::string getDistanceSone2();
 		std::string getDistanceSone3();
 		std::string getDistance();
+		std::string getStart();
 		Serial *serialDistance; 	
 		Serial *serialBeacon;
 		marioKalman *mario;
@@ -24,4 +26,5 @@ class Prog {
 		std::string distance3; //The lower sensor
 		std::string prevMeasure; //The previouse values from beacons
 		time_t timeSincePrevMeasure; //contains the time since previous measure
+		std::string start;
 };

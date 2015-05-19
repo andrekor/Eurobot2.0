@@ -18,11 +18,13 @@
 #define ANALOGPIN 0 //sa,e as A0
 #define SONE2 A5 //analog pin for the IR sensor (sone 2 - behind robot)
 #define SONE3 A4 //analog pin for the IR sensor (sone 3 - lower front)
+#define START 11
+#define COLLECTOR 5
 //#define INPUT_PIN A2 //analog pin for the IR sensor (sone 3 - lower front)
 //#define INPUT_PIN A1 //analog pin for the IR sensor
 #define PW_PIN 7 //Detection of the opponent (sone 1 - opponent detection)
 #define PW_SCALE 50 //calculated pulse width scale
-#define AN_SCALE 
+//#define AN_SCALE 
 
 #define FULL_STOP 0
 #define SLOW_DOWN 1
@@ -41,7 +43,10 @@ int curr_state = FULL_STOP;
 int prevA = 0; //something wrong with the Ultra sound, so got 14 certain times even though it shouldn't
 void setup() {
 	Serial.begin(9600);
-	sonarSerial.begin(9600); //Start serial for maxsonar
+	//sonarSerial.begin(9600); //Start serial for maxsonar
+	pinMode(START, OUTPUT); 
+	digitalWrite(START, HIGH);
+	pinMode(COLLECTOR, INPUT_PULLUP); 
 	delay(500);
 }
 
@@ -54,7 +59,7 @@ void loop() {
 	/*Sone 1, opponent detection*/
 	Serial.print("A");
 	int opponent = (int) pw();//opponent distance
-	 if ((opponent != 14 || (prevA == 14)) && (abs(prevA-opponent) < 100)) {//should get rid of values when the sensor jumps down to 14.
+ 	if ((opponent != 14 || (prevA == 14)) && (abs(prevA-opponent) < 100)) {//should get rid of values when the sensor jumps down to 14.
 		Serial.print(opponent); //Opponent detection with Ultrasound
 	} else {
 		Serial.print(prevA); //Invalid reading 
@@ -65,9 +70,12 @@ void loop() {
 	Serial.print(calculateIRdistance(SONE2)); //begind robot
 	/*Sone 3, Sensors low in front of the robot*/
 	Serial.print("C");
-	Serial.println(calculateIRdistance(SONE3));
-	delay(200);	
+	Serial.print(calculateIRdistance(SONE3));
+	Serial.print("D");
+	Serial.println(shouldStart());
+
 	//opponentDistance();
+	delay(100);
 }
 
 /*To read from the analog pin*/
@@ -175,3 +183,8 @@ void opponentDistance() {
 		Serial.println(state[curr_state]);
 	}
 }
+
+bool shouldStart() { 
+	return digitalRead(collector); 
+}
+

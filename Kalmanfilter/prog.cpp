@@ -38,6 +38,7 @@ void readDistance(Prog *p) {
 			std::string d1 = "0"; // temp
 			std::string d2 = "0"; // temp
 			std::string d3 = "0"; // temp
+			std::string start = "0"; //temp
 			int count;
 			if (a.find("A") >= 0) {
 				count = (a.find("B")-1)-a.find("A");
@@ -48,10 +49,14 @@ void readDistance(Prog *p) {
 				d2 = a.substr(a.find("B")+1, count); // sone 2
 			}
 			if (a.find("C") > 0) {
-				count = (a.length()-1)-a.find("C");
+				count = (a.find("D")-1)-a.find("C");
 				d3 = a.substr(a.find("C")+1, count); // sone 3
+			} if (a.find("D") > 0) {
+				count = (a.length()-1)-a.find("D");
+				start = a.substr(a.find("D"), count);
 			}
  			//sets the distance variable in Prog
+ 			p->setStart(start);
  			p->setDistance(d1, d2, d3);
  		}
 	}
@@ -109,6 +114,9 @@ void server(Prog *p) {
 		else if (c == '2') {
 			result = p->getDistance();
 			LOG("Reply with distance " << result);
+		} else if (c == '3') {
+			result = p->getStart();
+			LOG("Reply with start " << result);
 		}
 		zmq::message_t reply(result.length());
 		memcpy ((void *) reply.data(), result.c_str(), result.length());
@@ -154,6 +162,9 @@ Prog::Prog() {
 	mario->setMeasure(22.0,100.0,0.0); //start position
 }
 
+void Prog::setStart(std::string s) {
+	start = s;
+}
 
 void Prog::setPrevMeasure(std::string measure) {
 	time_t now;
@@ -165,6 +176,10 @@ void Prog::setPrevMeasure(std::string measure) {
 		timeSincePrevMeasure = now;
 		LOG("Sets the measure vector in kalman filter " <<  vec[0] << ", " << vec[1] << ", " << vec[2]);
 	}
+}
+
+std::string Prog::getStart() {
+	return start;
 }
 
 time_t Prog::getTime() {
