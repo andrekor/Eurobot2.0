@@ -41,41 +41,56 @@ int prev_state = FULL_STOP;
 int curr_state = FULL_STOP;
 
 int prevA = 0; //something wrong with the Ultra sound, so got 14 certain times even though it shouldn't
+float a1, a2, a3 = 0;
 void setup() {
 	Serial.begin(9600);
 	//sonarSerial.begin(9600); //Start serial for maxsonar
 	pinMode(START, OUTPUT); 
 	digitalWrite(START, HIGH);
 	pinMode(COLLECTOR, INPUT_PULLUP); 
-	delay(500);
+	delay(50);
+	/*fills distance values in to a1, a2 and a3*/
+	a1 = pw();
+	delay(100);
+	a2 = pw();
+	delay(100);
+	a3 = pw();
 }
 
 //Since the analog readings from maxsonar are very sensitiv
 //it will be more accurate to average n samples
 void loop() {
-//	analog();
-//	serialRead();
-	//Serial.println("40.4,123.3,83.23");
 	/*Sone 1, opponent detection*/
 	Serial.print("A");
 	int opponent = (int) pw();//opponent distance
- 	if ((opponent != 14 || (prevA == 14)) && (abs(prevA-opponent) < 100)) {//should get rid of values when the sensor jumps down to 14.
+ 	/*if ((opponent != 14 || (prevA == 14)) && (abs(prevA-opponent) < 200)) {//should get rid of values when the sensor jumps down to 14.
+ 		//Three previous measurements
 		Serial.print(opponent); //Opponent detection with Ultrasound
 	} else {
 		Serial.print(prevA); //Invalid reading 
-	}
+	}*/
+	a3 = a2; a2 = a1; a1 = opponent;
+	Serial.print(averageValues);
 	prevA = opponent;
+
 	/*Sone 2, Sensor behind the robot*/
 	Serial.print("B");
 	Serial.print(calculateIRdistance(SONE2)); //begind robot
+
 	/*Sone 3, Sensors low in front of the robot*/
 	Serial.print("C");
 	Serial.print(calculateIRdistance(SONE3));
+
+	/*Should robot start*/
 	Serial.print("D");
 	Serial.println(shouldStart());
-
 	//opponentDistance();
 	delay(100);
+}
+
+/*Moving average filter. windowsize 3*/
+float averageValues() {
+	return (a1+a2+a3)/3;
 }
 
 /*To read from the analog pin*/

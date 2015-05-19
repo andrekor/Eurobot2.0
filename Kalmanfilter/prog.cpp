@@ -29,6 +29,7 @@
 std::string port = "5900"; //the port for zmq server
 std::string comD = "/dev/ttyACM0"; //com for distance 
 std::string comB = "/dev/ttyUSB0"; // com for beacon
+
 /*Fetches the serial input. If its valid 
 result it puts it sets the distance*/
 void readDistance(Prog *p) {
@@ -147,8 +148,6 @@ std::string kalmanPos(std::string position, marioKalman *mario) {
 Prog::~Prog() {}
 
 Prog::Prog() {
-	std::string sd = "/dev/ttyACM0"; //Serial port to distance arduino
-	std::string sp = "/dev/ttyUSB0"; //Serial port to position arduino
 	serialDistance = new Serial(comD); //opens the communication to the distance arduino
 	LOG("Opening serial Distance on" << comD);
 	serialBeacon = new Serial(comB);  //opens the communication to the position arduino
@@ -157,6 +156,7 @@ Prog::Prog() {
 	distance2 = "0";
 	distance3 = "0";
 	prevMeasure = "0";
+	start = "0"; 
 	time(&timeSincePrevMeasure); //initialize to something high
 	mario = new marioKalman(); //Initialize the kalman filter
 	mario->setMeasure(22.0,100.0,0.0); //start position
@@ -260,6 +260,7 @@ int main(int argc, char *argv[]) {
 		handleInput(argc, argv);
 	}
 	Prog *p = new Prog();
+	
 	//Threads the distance reader, the zmq server and beacon position
 	LOG("Starts the distance thread");
 	std::thread distance(readDistance, p);
