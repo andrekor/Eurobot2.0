@@ -54,7 +54,7 @@ void readDistance(Prog *p) {
 				d3 = a.substr(a.find("C")+1, count); // sone 3
 			} if (a.find("D") > 0) {
 				count = (a.length()-1)-a.find("D");
-				start = a.substr(a.find("D"), count);
+				start = a.substr(a.find("D")+1, count);
 			}
  			//sets the distance variable in Prog
  			p->setStart(start);
