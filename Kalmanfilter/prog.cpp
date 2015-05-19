@@ -163,6 +163,7 @@ Prog::Prog() {
 }
 
 void Prog::setStart(std::string s) {
+	LOG("Should start " << s);
 	start = s;
 }
 
@@ -225,6 +226,7 @@ void beaconPos(Prog *p) {
 	}
 }
 
+/*Checks the arguments given to the program*/
 void handleInput(int argc, char *argv[]) {
 	std::stringstream ss;
 	std::stringstream cs;
