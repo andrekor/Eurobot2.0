@@ -1,0 +1,3 @@
+prog.o: prog.cpp log.h prog.h marioKalman.h serial.h main.h
+marioKalman.o: marioKalman.cpp marioKalman.h log.h
+serial.o: serial.cpp serial.h
