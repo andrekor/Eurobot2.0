@@ -118,7 +118,7 @@ void server(Prog *p) {
 		} else if (c == '3') {
 			result = p->getStart();
 			LOG("Reply with start " << result);
-			LOG("Result is " << result.length << " chars long");
+			LOG("Result is " << result.length() << " chars long");
 		}
 		zmq::message_t reply(result.length());
 		memcpy ((void *) reply.data(), result.c_str(), result.length());
