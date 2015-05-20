@@ -1,5 +1,6 @@
+#include <iostream>
 #ifdef DEBUG
-#  define LOG(x) std::cerr << "[LOG] " << x << std::endl;
+#define LOG(x) std::cerr << "[LOG] " << x << std::endl;
 #else
-#  define LOG(x)
+#define LOG(x)
 #endif // DEBUG
