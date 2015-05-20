@@ -18,8 +18,8 @@
 #define ANALOGPIN 0 //sa,e as A0
 #define SONE2 A5 //analog pin for the IR sensor (sone 2 - behind robot)
 #define SONE3 A4 //analog pin for the IR sensor (sone 3 - lower front)
-#define START 11
-#define COLLECTOR 5
+#define START 31
+#define COLLECTOR 44
 //#define INPUT_PIN A2 //analog pin for the IR sensor (sone 3 - lower front)
 //#define INPUT_PIN A1 //analog pin for the IR sensor
 #define PW_PIN 7 //Detection of the opponent (sone 1 - opponent detection)

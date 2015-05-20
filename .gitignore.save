@@ -1,0 +1,11 @@
+lmanfilter/armadillo-4.650.3
+Kalmanfilter/kalmanRobotics.cpp
+Kalmanfilter/mario
+Kalmanfilter/exec
+*~
+*.class
+*.o
+*.pdf
+*.txt
+*.jpg
+
