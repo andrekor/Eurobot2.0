@@ -34,6 +34,7 @@ std::string comB = "/dev/ttyUSB0"; // com for beacon
 result it puts it sets the distance*/
 void readDistance(Prog *p) {
 	while(1) {
+		usleep(10);
 		std::string a = p->serialDistance->readLine();
 		if (a.length() > 1) {
 			std::string d1 = "0"; // temp
@@ -218,7 +219,7 @@ std::string Prog::getDistanceSone3() {
 Perhaps this also is where the calculation should occure*/
 void beaconPos(Prog *p) {
 	while(1) {
-		usleep(1000); 
+		usleep(100); 
 		std::string a = p->serialBeacon->readLine(); //reads the line from the Position arduino
 		if (a.length() > 1) {
 			p->setPrevMeasure(a);
