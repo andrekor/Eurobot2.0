@@ -70,7 +70,7 @@ void loop() {
 		Serial.print(prevA); //Invalid reading 
 	}*/
 	a3 = a2; a2 = a1; a1 = opponent;
-	Serial.print(averageValues());
+	Serial.print(pw());
 	prevA = opponent;
 
 	/*Sone 2, Sensor behind the robot*/
