@@ -28,7 +28,7 @@
 
 std::string port = "5900"; //the port for zmq server
 std::string comD = "/dev/ttyACM0"; //com for distance 
-std::string comB = "/dev/ttys9"; // com for beacon
+std::string comB = "/dev/ttyS9"; // com for beacon
 
 /*Fetches the serial input. If its valid 
 result it puts it sets the distance*/
@@ -165,6 +165,7 @@ Prog::Prog() {
 }
 
 void Prog::setStart(std::string s) {
+	LOG("Set start " << s);
 	LOG("Should start " << s);
 	start = s;
 }
@@ -258,11 +259,43 @@ void handleInput(int argc, char *argv[]) {
 	}
 }
 
+
+bool comExist(const std::string& com) {
+	struct stat buffer;
+	return (stat(com.c_str(), &buffer) == 0);
+}
+
+bool setPort() {
+	bool acm0 = comExist("/dev/ttyACM0");
+	bool acm1 = comExist("/dev/ttyACM1");
+	bool acm2 = comExist("/dev/ttyACM2");
+	bool acm3 = comExist("/dev/ttyACM3");
+
+	if(acm0) {
+		comD = "/dev/ttyACM0";
+	} else if(acm1) {
+		comD = "/dev/ttyACM1";
+	} else if(acm2) {
+		comD = "/dev/ttyACM2";		
+	} else if(acm3) {
+		comD = "/dev/ttyACM3";
+	} else {
+		LOG("No ports available");
+		return 1;
+	}
+	return 0;
+
+}
+
 int main(int argc, char *argv[]) {
 	//std::string port = "5900"; //test variable
+	
+	if (setPort()) 
+		return 1;
 	if (argc > 2) {
 		handleInput(argc, argv);
 	}
+	LOG("Hit");
 	Prog *p = new Prog();
 	//Threads the distance reader, the zmq server and beacon position
 	LOG("Starts the distance thread");
@@ -280,3 +313,5 @@ int main(int argc, char *argv[]) {
 	if (beacon.joinable()) 
 		beacon.join();
 } 
+
+

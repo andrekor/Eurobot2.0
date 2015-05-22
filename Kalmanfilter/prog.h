@@ -1,6 +1,11 @@
 #include "marioKalman.h"
 #include "serial.h"
+
 #include <thread> //std::thread
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 class Prog {
 	public:
