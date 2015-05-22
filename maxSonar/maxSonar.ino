@@ -79,8 +79,7 @@ void loop() {
 
 	/*Sone 3, Sensors low in front of the robot*/
 	Serial.print("C");
-//	Serial.print(calculateIRdistance(SONE3));
-	Serial.print("0");
+	Serial.print(calculateIRdistance(SONE3));
 	/*Should robot start*/
 	Serial.print("D");
 	Serial.println(shouldStart());

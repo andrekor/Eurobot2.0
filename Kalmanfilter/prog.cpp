@@ -28,7 +28,7 @@
 
 std::string port = "5900"; //the port for zmq server
 std::string comD = "/dev/ttyACM0"; //com for distance 
-std::string comB = "/dev/ttyUSB0"; // com for beacon
+std::string comB = "/dev/ttys9"; // com for beacon
 
 /*Fetches the serial input. If its valid 
 result it puts it sets the distance*/
