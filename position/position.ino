@@ -20,6 +20,7 @@
 
 #define RECV_PIN 12
 
+
 #define testPin 11
 
 #define VALUE_BEACON_A 338
@@ -238,6 +239,8 @@ steps will be the last step in the intervall where the tower sees the beacon.
 */
 void setStep(int beacon) {
  	if (beacon == 1) {
+ 		/*Serial.print("A: ");
+ 		Serial.println(stepCount);*/
 		if (A) { //er true, hvis dette er første signal fra denne beaconen på denne runden
 			A = false;
 			zeroOldestBeacon(1);
@@ -245,6 +248,8 @@ void setStep(int beacon) {
 		}
 		lastAstep = stepCount;
 	} else if (beacon == 2) {
+		/*Serial.print("C: ");
+ 		Serial.println(stepCount);*/
 		if (B) {
 			B = false;
 			zeroOldestBeacon(2);
@@ -252,6 +257,8 @@ void setStep(int beacon) {
 		}
 		lastBstep = stepCount;
 	} else {
+		/*Serial.print("B: ");
+ 		Serial.println(stepCount);*/
 		if (C) {
 			C = false;
 			zeroOldestBeacon(3);

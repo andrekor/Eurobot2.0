@@ -63,8 +63,8 @@ void loop() {
 
 void decode() {
   if (irrecv.decode(&results)) {
-    //Serial.println(results.bits); //The length of the signa
-    //Serial.println(results.value);
+   // Serial.println(results.bits); //The length of the signa
+   // Serial.println(results.value);
     int value = results.value;
     int bit = results.bits;
     Serial.print(value);

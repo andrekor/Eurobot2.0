@@ -62,24 +62,24 @@ void setup() {
 void loop() {
 	/*Sone 1, opponent detection*/
 	Serial.print("A");
-	int opponent = (int) pw();//opponent distance
+//	int opponent = (int) pw();//opponent distance
  	/*if ((opponent != 14 || (prevA == 14)) && (abs(prevA-opponent) < 200)) {//should get rid of values when the sensor jumps down to 14.
  		//Three previous measurements
 		Serial.print(opponent); //Opponent detection with Ultrasound
 	} else {
 		Serial.print(prevA); //Invalid reading 
 	}*/
-	a3 = a2; a2 = a1; a1 = opponent;
+//	a3 = a2; a2 = a1; a1 = opponent;
 	Serial.print(pw());
-	prevA = opponent;
+//	prevA = opponent;
 
 	/*Sone 2, Sensor behind the robot*/
 	Serial.print("B");
-	Serial.print(calculateIRdistance(SONE2)); //begind robot
+	Serial.print("0"); //begind robot
 
 	/*Sone 3, Sensors low in front of the robot*/
 	Serial.print("C");
-	Serial.print(calculateIRdistance(SONE3));
+	Serial.print(calculateIRdistance(SONE2));
 	/*Should robot start*/
 	Serial.print("D");
 	Serial.println(shouldStart());
