@@ -159,7 +159,7 @@ Prog::Prog() {
 	distance3 = "0";
 	prevMeasure = "0";
 	start = "0"; 
-	time(&timeSincePrevMeasrue); //initialize to something high
+	time(&timeSincePrevMeasure); //initialize to something high
 	mario = new marioKalman(); //Initialize the kalman filter
 	mario->setMeasure(22.0,100.0,0.0); //start position
 }
